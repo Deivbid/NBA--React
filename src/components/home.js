@@ -1,10 +1,39 @@
 import React, { Component } from 'react'
 
+//COMPONENTS
+import Featured from './featured'
+import Subscriptions from './subscriptions'
+
+
+const URL_HOME = 'http://localhost:3004/home'
+
 class Home extends Component {
+
+	constructor(props){
+		super(props)
+
+		this.state = {
+			home:''
+		}
+	}
+
+	componentDidMount(){
+		fetch(URL_HOME, {method: 'GET'})
+		.then(res => res.json())
+		.then(data => {
+			this.setState({
+				home: data,
+			})
+		})
+	}
+
   render() {
     return (
 
-      <div> HOME </div>
+      <div>
+      	<Featured slides={this.state.home}/>
+      	<Subscriptions />
+      </div>
         
     );
   }
